@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — JobBridge{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+  <div class="container">
+
+    <!-- Welcome Banner -->
+    <div class="dashboard-welcome">
+      <div>
+        <h1>👋 Hello, {{ user.name }}!</h1>
+        <p>Here's a summary of your JobBridge activity.</p>
+      </div>
+      <a href="{{ url_for('resume.upload') }}" class="btn btn-primary">
+        <i class="fas fa-upload"></i> Upload New Resume
+      </a>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon blue"><i class="fas fa-file-upload"></i></div>
+        <div class="stat-info">
+          <span class="stat-number">{{ stats.total_uploads or 0 }}</span>
+          <span class="stat-label">Resumes Uploaded</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon green"><i class="fas fa-chart-bar"></i></div>
+        <div class="stat-info">
+          <span class="stat-number">{{ stats.avg_score or 0 }}<small>/100</small></span>
+          <span class="stat-label">Average Score</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon purple"><i class="fas fa-bullseye"></i></div>
+        <div class="stat-info">
+          <span class="stat-number" style="font-size:1.1rem;">{{ stats.last_role or '—' }}</span>
+          <span class="stat-label">Latest Predicted Role</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon orange"><i class="fas fa-calendar-check"></i></div>
+        <div class="stat-info">
+          <span class="stat-number" style="font-size:1rem;">
+            {% if stats.last_upload %}
+              {% if stats.last_upload.strftime %}
+                {{ stats.last_upload.strftime('%d %b %Y') }}
+              {% else %}
+                {{ stats.last_upload }}
+              {% endif %}
+            {% else %}—{% endif %}
+          </span>
+          <span class="stat-label">Last Upload</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Uploads Table -->
+    <div class="dashboard-section">
+      <div class="section-title-row">
+        <h2><i class="fas fa-clock"></i> Recent Uploads</h2>
+        <a href="{{ url_for('resume.history') }}" class="btn btn-outline btn-sm">View All</a>
+      </div>
+
+      {% if recent_uploads %}
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Filename</th>
+              <th>Predicted Role</th>
+              <th>Score</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for upload in recent_uploads %}
+            <tr>
+              <td><i class="fas fa-file-pdf text-muted"></i> {{ upload.filename }}</td>
+              <td><span class="role-badge">{{ upload.predicted_role }}</span></td>
+              <td>
+                <div class="score-pill {% if upload.resume_score >= 70 %}green{% elif upload.resume_score >= 40 %}orange{% else %}red{% endif %}">
+                  {{ upload.resume_score }}/100
+                </div>
+              </td>
+              <td>
+                {% if upload.upload_time and upload.upload_time.strftime %}
+                  {{ upload.upload_time.strftime('%d %b %Y, %I:%M %p') }}
+                {% else %}
+                  {{ upload.upload_time or '' }}
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <div class="empty-state">
+        <i class="fas fa-inbox"></i>
+        <h3>No uploads yet</h3>
+        <p>Upload your first resume to see your career analysis here.</p>
+        <a href="{{ url_for('resume.upload') }}" class="btn btn-primary">Upload Now</a>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <h2>Quick Actions</h2>
+      <div class="actions-grid">
+        <a href="{{ url_for('resume.upload') }}" class="action-card">
+          <i class="fas fa-upload"></i>
+          <span>Upload Resume</span>
+        </a>
+        <a href="{{ url_for('resume.history') }}" class="action-card">
+          <i class="fas fa-history"></i>
+          <span>View History</span>
+        </a>
+        <a href="{{ url_for('resume.interview_prep') }}" class="action-card">
+          <i class="fas fa-comments"></i>
+          <span>Interview Prep</span>
+        </a>
+        <a href="{{ url_for('auth.logout') }}" class="action-card danger">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Logout</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

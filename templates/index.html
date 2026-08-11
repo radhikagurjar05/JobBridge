@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+{% block title %}JobCatch — Find Your Perfect Career{% endblock %}
+
+{% block content %}
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge"><i class="fas fa-star"></i> AI-Powered Career Matching</div>
+    <h1 class="hero-title">
+      Find Your<br>
+      <span class="gradient-text">Dream Job</span><br>
+      in Seconds
+    </h1>
+    <p class="hero-subtitle">
+      Upload your resume and our smart engine instantly predicts the best job role for you,
+      extracts your skills, and shows exactly what's missing.
+    </p>
+    <div class="hero-actions">
+      <a href="{{ url_for('resume.upload') }}" class="btn btn-primary btn-lg">
+        <i class="fas fa-upload"></i> Scan My Resume
+      </a>
+      <a href="{{ url_for('auth.register') }}" class="btn btn-outline btn-lg">
+        Get Started Free
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><strong>25+</strong><span>Job Roles</span></div>
+      <div class="stat"><strong>100%</strong><span>Free to Use</span></div>
+      <div class="stat"><strong>Instant</strong><span>Results</span></div>
+    </div>
+  </div>
+  <div class="hero-image">
+    <div class="hero-card floating">
+      <div class="hero-card-icon"><i class="fas fa-file-alt"></i></div>
+      <div>
+        <p class="hero-card-label">Predicted Role</p>
+        <p class="hero-card-value">Python Developer</p>
+      </div>
+    </div>
+    <div class="hero-card floating" style="animation-delay: 0.5s; margin-top: 80px;">
+      <div class="hero-card-icon green"><i class="fas fa-chart-line"></i></div>
+      <div>
+        <p class="hero-card-label">Resume Score</p>
+        <p class="hero-card-value">82 / 100</p>
+      </div>
+    </div>
+    <div class="hero-card floating" style="animation-delay: 1s; margin-top: 160px;">
+      <div class="hero-card-icon purple"><i class="fas fa-lightbulb"></i></div>
+      <div>
+        <p class="hero-card-label">Skills Found</p>
+        <p class="hero-card-value">Python, Flask, SQL</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="section" id="how">
+  <div class="container">
+    <div class="section-header">
+      <h2>How It Works</h2>
+      <p>Three simple steps to your perfect job match</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">01</div>
+        <div class="step-icon"><i class="fas fa-upload"></i></div>
+        <h3>Upload Resume</h3>
+        <p>Upload your resume in PDF or DOCX format. We extract all the text automatically.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">02</div>
+        <div class="step-icon"><i class="fas fa-brain"></i></div>
+        <h3>Smart Analysis</h3>
+        <p>Our keyword engine scans your resume across 25 job categories to find the best match.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">03</div>
+        <div class="step-icon"><i class="fas fa-chart-bar"></i></div>
+        <h3>Get Results</h3>
+        <p>See your predicted role, resume score, extracted skills, and what skills you're missing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section class="section features-section" id="features">
+  <div class="container">
+    <div class="section-header">
+      <h2>Everything You Need</h2>
+      <p>A complete career toolkit for job seekers</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-bullseye"></i></div>
+        <h3>Role Prediction</h3>
+        <p>Instantly identify which of 25 job roles matches your resume best.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-star-half-alt"></i></div>
+        <h3>Resume Score</h3>
+        <p>Get a score out of 100 with detailed feedback on what to improve.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-tools"></i></div>
+        <h3>Skill Extraction</h3>
+        <p>See exactly which technical skills were found in your resume.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-search-plus"></i></div>
+        <h3>Skill Gap Detection</h3>
+        <p>Know which key skills you're missing for your target role.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-comments"></i></div>
+        <h3>Interview Prep</h3>
+        <p>Practice with real interview questions curated for your predicted role.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-history"></i></div>
+        <h3>Upload History</h3>
+        <p>Track all your resume uploads and prediction results over time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="section testimonials-section" id="about">
+  <div class="container">
+    <div class="section-header">
+      <h2>What Users Say</h2>
+      <p>Real stories from job seekers who used JobBridge</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"JobBridge told me exactly which skills I was missing. Within 2 weeks of adding them to my resume, I got 3 callbacks!"</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">S</div>
+          <div><strong>Sakshi Rawat</strong><br><small>Got placed at TCS</small></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"The interview prep section is gold. The questions are exactly what I was asked in my actual interviews."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">R</div>
+          <div><strong>Ram Kumar</strong><br><small>Software Engineer at Infosys</small></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"My resume score was 45/100. The feedback was spot-on — I improved it and landed my dream job in 3 weeks."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">A</div>
+          <div><strong>Ankita Sharma</strong><br><small>Data Analyst at Wipro</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Ready to Find Your Dream Job?</h2>
+    <p>Join hundreds of job seekers using JobCatch to supercharge their career.</p>
+    <a href="{{ url_for('resume.upload') }}" class="btn btn-primary btn-lg">
+      <i class="fas fa-rocket"></i> Start For Free
+    </a>
+  </div>
+</section>
+
+<!-- ============ TEAM ============ -->
+<section class="section" id="team">
+  <div class="container">
+    <div class="section-header">
+      <h2>Meet the Developers</h2>
+      <p>Students at Medicaps University building the future of job search</p>
+    </div>
+    <div class="team-grid">
+      {% set members = [
+        ('Radhika Gurjar', 'Developer', 'R')
+      ] %}
+      {% for name, role, initials in members %}
+      <div class="team-card">
+        <div class="team-avatar">{{ initials }}</div>
+        <h4>{{ name }}</h4>
+        <p>{{ role }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

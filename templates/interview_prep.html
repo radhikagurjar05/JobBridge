@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block title %}Interview Prep — JobBridge{% endblock %}
+
+{% block content %}
+<div class="interview-page">
+  <div class="container">
+
+    <div class="page-header">
+      <h1><i class="fas fa-comments"></i> Interview Preparation</h1>
+      <p>Select a job role and practice with curated interview questions.</p>
+    </div>
+
+    <!-- Role Selector -->
+    <div class="selector-card">
+      <label for="roleSelect"><i class="fas fa-briefcase"></i> Choose Your Target Role:</label>
+      <select id="roleSelect" class="role-select">
+        <option value="" disabled selected>-- Select a Job Role --</option>
+        {% for role in roles %}
+          <option value="{{ role }}">{{ role }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <!-- Questions Container -->
+    <div id="questionsContainer" class="questions-container" style="display:none;">
+      <div class="questions-header">
+        <h2 id="questionsTitle"></h2>
+        <p id="questionCount" class="text-muted"></p>
+      </div>
+      <div id="questionsList"></div>
+    </div>
+
+    <!-- Empty State (before selection) -->
+    <div class="empty-state" id="emptyState">
+      <i class="fas fa-hand-point-up"></i>
+      <h3>Select a role above</h3>
+      <p>Pick a job role from the dropdown to see interview questions and answers.</p>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+const roleSelect = document.getElementById('roleSelect');
+const questionsContainer = document.getElementById('questionsContainer');
+const questionsList = document.getElementById('questionsList');
+const questionsTitle = document.getElementById('questionsTitle');
+const questionCount = document.getElementById('questionCount');
+const emptyState = document.getElementById('emptyState');
+
+roleSelect.addEventListener('change', function() {
+  const selectedRole = this.value;
+  if (!selectedRole) return;
+
+  // Fetch questions from the Flask API endpoint
+  fetch(`/api/questions?role=${encodeURIComponent(selectedRole)}`)
+    .then(response => response.json())
+    .then(questions => {
+      // Update header
+      questionsTitle.textContent = `${selectedRole} — Interview Questions`;
+      questionCount.textContent = `${questions.length} questions`;
+
+      // Clear previous questions
+      questionsList.innerHTML = '';
+      emptyState.style.display = 'none';
+      questionsContainer.style.display = 'block';
+
+      if (questions.length === 0) {
+        questionsList.innerHTML = '<p class="muted">No questions available for this role yet.</p>';
+        return;
+      }
+
+      // Build each Q&A card
+      questions.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        card.innerHTML = `
+          <div class="question-header" onclick="toggleAnswer(this)">
+            <span class="q-number">Q${index + 1}</span>
+            <span class="q-text">${item.q}</span>
+            <i class="fas fa-chevron-down q-arrow"></i>
+          </div>
+          <div class="question-answer" style="display:none;">
+            <p>${item.a}</p>
+          </div>
+        `;
+        questionsList.appendChild(card);
+      });
+    })
+    .catch(err => {
+      questionsList.innerHTML = '<p class="error">Failed to load questions. Please try again.</p>';
+    });
+});
+
+function toggleAnswer(header) {
+  const answer = header.nextElementSibling;
+  const arrow  = header.querySelector('.q-arrow');
+  const isOpen = answer.style.display !== 'none';
+
+  answer.style.display = isOpen ? 'none' : 'block';
+  arrow.style.transform = isOpen ? '' : 'rotate(180deg)';
+  header.classList.toggle('active', !isOpen);
+}
+</script>
+{% endblock %}

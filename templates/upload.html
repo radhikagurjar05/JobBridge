@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+{% block title %}Scan Resume — JobBridge{% endblock %}
+
+{% block content %}
+<div class="upload-page">
+  <div class="container">
+
+    <div class="page-header">
+      <h1><i class="fas fa-file-search"></i> Resume Analyzer</h1>
+      <p>Upload your resume (PDF or DOCX) and get an instant career analysis.</p>
+    </div>
+
+    <!-- Upload Card -->
+    <div class="upload-card" id="uploadSection">
+      <form method="POST" action="{{ url_for('resume.upload') }}" enctype="multipart/form-data" id="uploadForm">
+        <div class="dropzone" id="dropzone">
+          <i class="fas fa-cloud-upload-alt dropzone-icon"></i>
+          <h3>Drag & Drop your resume here</h3>
+          <p>or click to browse files</p>
+          <p class="dropzone-hint">Supports PDF and DOCX — Max 5 MB</p>
+          <input type="file" name="resume" id="resumeInput" accept=".pdf,.docx" required>
+        </div>
+        <div id="filePreview" class="file-preview" style="display:none;">
+          <i class="fas fa-file-alt"></i>
+          <span id="fileName"></span>
+          <button type="button" onclick="clearFile()" class="btn-icon"><i class="fas fa-times"></i></button>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-full" id="submitBtn">
+          <i class="fas fa-search"></i> Analyze Resume
+        </button>
+      </form>
+    </div>
+
+    <!-- =====================================================
+         RESULTS (shown only after a successful upload)
+    ===================================================== -->
+    {% if results %}
+    <div class="results-section">
+
+      <!-- Role + Score Header -->
+      <div class="result-hero">
+        <div class="result-role">
+          <p class="result-label">Your Predicted Job Role</p>
+          <h2 class="result-role-name">{{ results.predicted_role }}</h2>
+          <p class="result-file"><i class="fas fa-file"></i> {{ filename }}</p>
+        </div>
+        <div class="result-score-ring">
+          <svg viewBox="0 0 120 120" class="score-ring">
+            <circle cx="60" cy="60" r="50" class="ring-bg"/>
+            <circle cx="60" cy="60" r="50" class="ring-fill"
+                    style="stroke-dashoffset: calc(314 - (314 * {{ results.score }}) / 100)"/>
+          </svg>
+          <div class="score-ring-text">
+            <span class="score-number">{{ results.score }}</span>
+            <span class="score-max">/100</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Score Breakdown -->
+      <div class="result-card">
+        <h3><i class="fas fa-list-check"></i> Score Breakdown</h3>
+        <div class="score-checks">
+          {% for item in results.score_details %}
+          <div class="score-check {{ 'pass' if item.passed else 'fail' }}">
+            <i class="fas {{ 'fa-check-circle' if item.passed else 'fa-times-circle' }}"></i>
+            <span>{{ item.label }}</span>
+            <span class="check-pts">+{{ item.points if item.passed else 0 }} pts</span>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="results-grid">
+        <!-- Found Skills -->
+        <div class="result-card">
+          <h3><i class="fas fa-check-circle text-green"></i> Skills Found in Your Resume</h3>
+          {% if results.found_skills %}
+            <div class="skills-list">
+              {% for skill in results.found_skills %}
+                <span class="skill-tag found">{{ skill }}</span>
+              {% endfor %}
+            </div>
+          {% else %}
+            <p class="muted">No matching skills found for this role. Try adding more technical keywords.</p>
+          {% endif %}
+        </div>
+
+        <!-- Missing Skills -->
+        <div class="result-card">
+          <h3><i class="fas fa-exclamation-triangle text-orange"></i> Missing Skills</h3>
+          {% if results.missing_skills %}
+            <div class="skills-list">
+              {% for skill in results.missing_skills %}
+                <span class="skill-tag missing">{{ skill }}</span>
+              {% endfor %}
+            </div>
+          {% else %}
+            <p class="muted">Great! You have all the core skills for this role.</p>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Suggested Skills -->
+      {% if results.suggested_skills %}
+      <div class="result-card">
+        <h3><i class="fas fa-lightbulb text-purple"></i> Suggested Skills to Learn Next</h3>
+        <p class="muted" style="margin-bottom:1rem;">Take your career to the next level by adding these trending skills:</p>
+        <div class="skills-list">
+          {% for skill in results.suggested_skills %}
+            <span class="skill-tag suggested">{{ skill }}</span>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- CTA -->
+      <div class="result-cta">
+        <a href="{{ url_for('resume.interview_prep') }}" class="btn btn-primary">
+          <i class="fas fa-comments"></i> Practice Interview Questions for {{ results.predicted_role }}
+        </a>
+        <a href="{{ url_for('resume.upload') }}" class="btn btn-outline">
+          <i class="fas fa-redo"></i> Upload Another Resume
+        </a>
+      </div>
+
+    </div>
+    {% endif %}
+
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// Drag and drop file handling
+const dropzone   = document.getElementById('dropzone');
+const fileInput  = document.getElementById('resumeInput');
+const filePreview = document.getElementById('filePreview');
+const fileName   = document.getElementById('fileName');
+const submitBtn  = document.getElementById('submitBtn');
+
+dropzone.addEventListener('click', () => fileInput.click());
+
+dropzone.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  dropzone.classList.add('dragover');
+});
+dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+dropzone.addEventListener('drop', (e) => {
+  e.preventDefault();
+  dropzone.classList.remove('dragover');
+  if (e.dataTransfer.files.length > 0) {
+    fileInput.files = e.dataTransfer.files;
+    showFilePreview(e.dataTransfer.files[0].name);
+  }
+});
+
+fileInput.addEventListener('change', () => {
+  if (fileInput.files.length > 0) showFilePreview(fileInput.files[0].name);
+});
+
+function showFilePreview(name) {
+  dropzone.style.display = 'none';
+  fileName.textContent = name;
+  filePreview.style.display = 'flex';
+}
+
+function clearFile() {
+  fileInput.value = '';
+  dropzone.style.display = 'flex';
+  filePreview.style.display = 'none';
+}
+
+// Show loading state on form submit
+document.getElementById('uploadForm').addEventListener('submit', () => {
+  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing...';
+  submitBtn.disabled = true;
+});
+</script>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Upload History — JobBridge{% endblock %}
+
+{% block content %}
+<div class="history-page">
+  <div class="container">
+
+    <div class="page-header">
+      <h1><i class="fas fa-history"></i> Upload History</h1>
+      <p>All your resume uploads and prediction results in one place.</p>
+      <a href="{{ url_for('resume.upload') }}" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Upload New
+      </a>
+    </div>
+
+    {% if uploads %}
+    <div class="table-wrapper">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Filename</th>
+            <th>Predicted Role</th>
+            <th>Resume Score</th>
+            <th>Upload Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for upload in uploads %}
+          <tr>
+            <td class="text-muted">{{ loop.index }}</td>
+            <td>
+              <i class="fas fa-file-pdf text-muted"></i>
+              {{ upload.filename }}
+            </td>
+            <td><span class="role-badge">{{ upload.predicted_role }}</span></td>
+            <td>
+              <div class="score-bar-wrapper">
+                <div class="score-bar">
+                  <div class="score-bar-fill
+                    {% if upload.resume_score >= 70 %}green
+                    {% elif upload.resume_score >= 40 %}orange
+                    {% else %}red{% endif %}"
+                    style="width: {{ upload.resume_score }}%">
+                  </div>
+                </div>
+                <span class="score-text">{{ upload.resume_score }}/100</span>
+              </div>
+            </td>
+            <td>
+              {% if upload.upload_time and upload.upload_time.strftime %}
+                {{ upload.upload_time.strftime('%d %b %Y, %I:%M %p') }}
+              {% else %}
+                {{ upload.upload_time or '' }}
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <i class="fas fa-inbox"></i>
+      <h3>No history yet</h3>
+      <p>You haven't uploaded any resumes. Start now!</p>
+      <a href="{{ url_for('resume.upload') }}" class="btn btn-primary">Upload My Resume</a>
+    </div>
+    {% endif %}
+
+  </div>
+</div>
+{% endblock %}
