@@ -1,7 +1,7 @@
 """
 app/ml/data.py — Role keywords and interview questions.
 
-This is the "brain" of JobCatch — pure Python dictionaries.
+This is the "brain" of JobBridge — pure Python dictionaries.
 No ML library needed. Just keyword matching.
 
 ROLE_KEYWORDS: Used for prediction + skill extraction + gap analysis.

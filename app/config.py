@@ -21,7 +21,7 @@ class Config:
     # Flask secret key — used to sign session cookies.
     # Change this to a long random string in production.
     # -------------------------------------------------------
-    SECRET_KEY = os.environ.get('SECRET_KEY', 'jobcatch-dev-secret-key-change-in-production')
+    SECRET_KEY = os.environ.get('SECRET_KEY', 'jobbridge-dev-secret-key-change-in-production')
 
     # -------------------------------------------------------
     # Database settings (MySQL with automatic SQLite fallback)
@@ -31,8 +31,8 @@ class Config:
     MYSQL_PORT     = int(os.environ.get('MYSQL_PORT', 3306))
     MYSQL_USER     = os.environ.get('MYSQL_USER', 'root')
     MYSQL_PASSWORD = os.environ.get('MYSQL_PASSWORD', '')
-    MYSQL_DATABASE = os.environ.get('MYSQL_DATABASE', 'jobcatch_db')
-    SQLITE_PATH    = os.environ.get('SQLITE_PATH', os.path.join(os.path.dirname(os.path.dirname(__file__)), 'jobcatch.db'))
+    MYSQL_DATABASE = os.environ.get('MYSQL_DATABASE', 'jobbridge_db')
+    SQLITE_PATH    = os.environ.get('SQLITE_PATH', os.path.join(os.path.dirname(os.path.dirname(__file__)), 'jobbridge.db'))
 
 
 

@@ -1,5 +1,5 @@
 """
-app/models.py — Database connection and table setup for JobCatch.
+app/models.py — Database connection and table setup for JobBridge.
 
 We use mysql-connector-python (the official MySQL driver for Python).
 There is NO ORM here — just plain SQL, so it's easy to read and explain.
@@ -83,7 +83,7 @@ def _connect_db(cfg):
         if not HAS_MYSQL:
             if engine == 'mysql':
                 raise ImportError("mysql-connector-python package is required when DB_ENGINE='mysql'.")
-            print("[JobCatch] mysql-connector module not found. Falling back to SQLite database.")
+            print("[JobBridge] mysql-connector module not found. Falling back to SQLite database.")
             _use_sqlite = True
         else:
             try:
@@ -98,7 +98,7 @@ def _connect_db(cfg):
             except Exception as err:
                 if engine == 'mysql':
                     raise err
-                print(f"[JobCatch] MySQL connection failed ({err}). Falling back to SQLite database.")
+                print(f"[JobBridge] MySQL connection failed ({err}). Falling back to SQLite database.")
                 _use_sqlite = True
 
     if _use_sqlite:
@@ -196,8 +196,8 @@ def init_db(app):
         conn.commit()
         cursor.close()
         conn.close()
-        db_name = "SQLite (jobcatch.db)" if _use_sqlite else "MySQL"
-        print(f"[JobCatch] Database tables are ready using {db_name}.")
+        db_name = "SQLite (jobbridge.db)" if _use_sqlite else "MySQL"
+        print(f"[JobBridge] Database tables are ready using {db_name}.")
 
 
 # ----------------------------------------------------------------

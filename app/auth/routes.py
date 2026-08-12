@@ -68,7 +68,7 @@ def register():
         session['user_name'] = name
         session['user_email'] = email
 
-        flash(f'Welcome to JobCatch, {name}! 🎉', 'success')
+        flash(f'Welcome to JobBridge, {name}! 🎉', 'success')
         return redirect(url_for('main.dashboard'))
 
     return render_template('register.html')

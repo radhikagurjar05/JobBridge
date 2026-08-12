@@ -1,5 +1,5 @@
 """
-app/__init__.py — The App Factory for JobCatch.
+app/__init__.py — The App Factory for JobBridge.
 
 What is an App Factory?
     Instead of creating a global `app = Flask(__name__)` object at the module level
