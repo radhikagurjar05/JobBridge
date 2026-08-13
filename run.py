@@ -1,5 +1,5 @@
-"""
-run.py — Entry point for the JobCatch Flask application.
+﻿"""
+run.py — Entry point for the JobBridge Flask application.
 
 Usage:
     python run.py

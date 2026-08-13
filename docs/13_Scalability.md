@@ -1,4 +1,4 @@
-# 13 — Scalability (If JobCatch Had 1 Million Users)
+﻿# 13 — Scalability (If JobBridge Had 1 Million Users)
 
 This is a forward-looking design discussion. Everything in this document is a **proposed change**, clearly distinguished from what's actually implemented today (which is documented in [03_Architecture.md](03_Architecture.md)).
 
@@ -50,7 +50,7 @@ Because there's no server-side session store or in-memory application state (aga
 At 1 million users, it's reasonable to ask "would you split this into microservices?" A defensible answer: **not yet, and maybe never fully** — this app's actual computational hot path (resume analysis) is cheap and synchronous, and the domain is small (auth + one core feature + a content page). The more valuable "service boundary" to consider is separating the **resume-analysis engine** (`app/ml/`) into its own internal service *only if* it evolves into something heavier (a trained model needing dedicated hardware) — at that point, extracting it behind an internal API (still callable from the same Flask app) would let it scale independently (e.g., GPU-backed instances) from the rest of the CRUD app. Splitting auth or dashboard into separate services wouldn't buy much given how lightweight those paths are.
 
 ### 8. Monitoring & Logging
-Currently there is **no structured logging and no monitoring** anywhere in the codebase — the only console output is a single `print("[JobCatch] Database tables are ready.")` in `init_db()`. At scale you would add:
+Currently there is **no structured logging and no monitoring** anywhere in the codebase — the only console output is a single `print("[JobBridge] Database tables are ready.")` in `init_db()`. At scale you would add:
 - Structured application logging (Python's `logging` module configured with JSON output) for request tracing, errors, and slow-query detection.
 - An APM/monitoring tool (Datadog, New Relic, or open-source Prometheus + Grafana) tracking request latency, error rates, and database query times.
 - Centralized log aggregation (ELK stack / CloudWatch Logs) so logs from many horizontally-scaled instances are searchable in one place.

@@ -1,6 +1,6 @@
-/*
+﻿/*
   static/js/main.js
-  Shared JavaScript for the JobCatch application.
+  Shared JavaScript for the JobBridge application.
 */
 
 document.addEventListener('DOMContentLoaded', () => {

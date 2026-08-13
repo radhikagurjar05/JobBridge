@@ -1,7 +1,7 @@
-# 01 — Project Overview
+﻿# 01 — Project Overview
 
 ## Project Name
-**JobCatch** — "Your AI-Powered Career Companion"
+**JobBridge** — "Your AI-Powered Career Companion"
 
 Source of truth for this claim: [README.md](../README.md) and the hero section in [templates/index.html](../templates/index.html).
 
@@ -12,10 +12,10 @@ Most freshers and job seekers do not know:
 3. Which specific technical skills they are missing for the role they want.
 4. What kind of questions they will actually be asked in an interview for that role.
 
-Today this feedback normally only comes from a mentor, a senior, or a paid resume-review service. JobCatch tries to give an **instant, free, first-pass answer** to all four questions the moment a user uploads their resume.
+Today this feedback normally only comes from a mentor, a senior, or a paid resume-review service. JobBridge tries to give an **instant, free, first-pass answer** to all four questions the moment a user uploads their resume.
 
 ## Purpose
-JobCatch is a Flask web application that:
+JobBridge is a Flask web application that:
 - Accepts a resume file (PDF or DOCX).
 - Extracts the raw text from it.
 - Runs it through a **rule-based keyword-matching engine** (not a trained ML/AI model — this is important and explained in [06_Technology_Stack.md](06_Technology_Stack.md)) to guess the most likely job role out of 25 predefined categories.
@@ -48,7 +48,7 @@ All of these are backed by real code — nothing here is a wishlist:
 
 ## Real-world Use Cases
 - A student about to apply to TCS uploads their resume before submitting it, sees they are missing "REST API" and "JUnit" for a Java Developer role, adds those to their resume, and re-uploads to confirm.
-- A bootcamp graduate is unsure if their resume "counts" as a Data Science resume or a Python Developer resume — JobCatch tells them objectively based on keyword density.
+- A bootcamp graduate is unsure if their resume "counts" as a Data Science resume or a Python Developer resume — JobBridge tells them objectively based on keyword density.
 - Someone practices the curated Q&A for "Python Developer" the night before an interview.
 
 ## Why This Project Is Useful (for an interview discussion)
@@ -85,7 +85,7 @@ All of these are backed by real code — nothing here is a wishlist:
                         ▼
                  ┌─────────────┐
                  │   MySQL DB   │
-                 │ jobcatch_db  │
+                 │ jobbridge_db  │
                  │ users,       │
                  │ resume_uploads│
                  └─────────────┘

@@ -1,6 +1,6 @@
-# 17 — Resume Questions (50+ Questions an Interviewer Could Ask If This Is On Your Resume)
+﻿# 17 — Resume Questions (50+ Questions an Interviewer Could Ask If This Is On Your Resume)
 
-If your resume has a line like *"Built JobCatch — a Flask-based resume analysis platform with MySQL, achieving resume scoring and 25-role prediction"*, expect questions like these. Answers are short and resume-defense-oriented — pair with the deeper docs referenced for follow-up depth.
+If your resume has a line like *"Built JobBridge — a Flask-based resume analysis platform with MySQL, achieving resume scoring and 25-role prediction"*, expect questions like these. Answers are short and resume-defense-oriented — pair with the deeper docs referenced for follow-up depth.
 
 ### Project Scope & Ownership
 1. **Did you build this alone?** — Yes, solo project (per the "Meet the Team" section listing a single developer, Radhika Gurjar, and the README's "Developer" credit).

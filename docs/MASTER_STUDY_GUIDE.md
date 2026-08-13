@@ -1,10 +1,10 @@
-# MASTER STUDY GUIDE — JobCatch TCS Digital Interview Prep
+﻿# MASTER STUDY GUIDE — JobBridge TCS Digital Interview Prep
 
 ## Project Summary
 
-**JobCatch** is a Flask-based, MySQL-backed web application that lets a user upload a resume (PDF or DOCX) and instantly receive: a predicted job role (1 of 25 categories, via a transparent rule-based keyword-counting engine — deliberately **not** a trained ML model), a resume quality score out of 100 (7 structural checks), a found-vs-missing skills breakdown for the predicted role, and suggested skills to learn next. Registered users get a dashboard and full upload history; a separate interview-prep page offers curated Q&A for 10 of the 25 roles. The whole app is a single monolithic Flask process using the Application Factory pattern, three blueprints (`auth`, `main`, `resume`), raw SQL (no ORM) against a two-table MySQL schema, and server-rendered Jinja2 templates with a vanilla CSS/JS frontend (including a dark-mode toggle). There is no deployment configuration, no automated tests, and several honestly-documented gaps (no CSRF protection, no Google OAuth despite placeholder env vars, a stale docstring referencing a `predictions` table that was never built) — all catalogued precisely throughout this guide so you can discuss them with confidence rather than being caught by them.
+**JobBridge** is a Flask-based, MySQL-backed web application that lets a user upload a resume (PDF or DOCX) and instantly receive: a predicted job role (1 of 25 categories, via a transparent rule-based keyword-counting engine — deliberately **not** a trained ML model), a resume quality score out of 100 (7 structural checks), a found-vs-missing skills breakdown for the predicted role, and suggested skills to learn next. Registered users get a dashboard and full upload history; a separate interview-prep page offers curated Q&A for 10 of the 25 roles. The whole app is a single monolithic Flask process using the Application Factory pattern, three blueprints (`auth`, `main`, `resume`), raw SQL (no ORM) against a two-table MySQL schema, and server-rendered Jinja2 templates with a vanilla CSS/JS frontend (including a dark-mode toggle). There is no deployment configuration, no automated tests, and several honestly-documented gaps (no CSRF protection, no Google OAuth despite placeholder env vars, a stale docstring referencing a `predictions` table that was never built) — all catalogued precisely throughout this guide so you can discuss them with confidence rather than being caught by them.
 
-This guide (and every document it indexes) is based **only** on what's actually implemented in the codebase at `/home/nikhil/Sudh/JobCatch` — nothing here is speculative or invented.
+This guide (and every document it indexes) is based **only** on what's actually implemented in the codebase at `/home/nikhil/Sudh/JobBridge` — nothing here is speculative or invented.
 
 ---
 
@@ -49,7 +49,7 @@ This guide (and every document it indexes) is based **only** on what's actually 
 ### Day 1 — Foundation (Understand the "What" and "Why")
 - Read: [01_Project_Overview.md](01_Project_Overview.md), [02_Elevator_Pitch.md](02_Elevator_Pitch.md), [03_Architecture.md](03_Architecture.md).
 - Do: Practice the 30-second and 1-minute pitches out loud, 5 times each, without notes.
-- Goal by end of day: you can describe what JobCatch is and why it exists in under 30 seconds, confidently.
+- Goal by end of day: you can describe what JobBridge is and why it exists in under 30 seconds, confidently.
 
 ### Day 2 — How It's Built
 - Read: [04_Application_Flow.md](04_Application_Flow.md), [05_Folder_Structure.md](05_Folder_Structure.md), [10_Code_Walkthrough.md](10_Code_Walkthrough.md).

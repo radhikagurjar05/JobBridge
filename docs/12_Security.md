@@ -1,4 +1,4 @@
-# 12 — Security Analysis
+﻿# 12 — Security Analysis
 
 This is an honest audit of what is and isn't implemented, based only on what's actually in the code. Interviewers at TCS Digital frequently probe security fundamentals — this document is meant to make you comfortable saying "yes, implemented, here's how" or "no, not implemented, here's what I'd add" instead of guessing.
 
@@ -47,7 +47,7 @@ The session cookie's security flags (`SESSION_COOKIE_SECURE`, `SESSION_COOKIE_HT
 **Not implemented.** There is no CSRF token on any form (`login.html`, `register.html`, `upload.html`) and no library like Flask-WTF providing one. Combined with session-cookie-based auth, this means a malicious third-party site could, in theory, trick a logged-in user's browser into submitting a form to this app (e.g., forcing a resume upload, or hitting `/logout`). The **practical impact is low** here — there's no destructive action like "delete account" or "change password" exposed, so the worst realistic outcome is an unwanted logout or an unwanted resume upload, not account takeover or data loss. Still, this is a gap worth naming directly if asked, along with the fix: add Flask-WTF's `CSRFProtect` and `{{ form.csrf_token }}` to every form.
 
 ## Secrets Management
-**Implemented correctly for local dev**: `SECRET_KEY` and MySQL credentials are read from environment variables via `python-dotenv`, never hardcoded in `app/config.py` (only insecure *fallback defaults* are hardcoded, clearly intended for local development only — e.g. `'jobcatch-dev-secret-key-change-in-production'`, whose very name warns you not to use it in production). `.env` is gitignored; `.env.example` documents the required keys without real values.
+**Implemented correctly for local dev**: `SECRET_KEY` and MySQL credentials are read from environment variables via `python-dotenv`, never hardcoded in `app/config.py` (only insecure *fallback defaults* are hardcoded, clearly intended for local development only — e.g. `'jobbridge-dev-secret-key-change-in-production'`, whose very name warns you not to use it in production). `.env` is gitignored; `.env.example` documents the required keys without real values.
 **Gap for production**: no integration with a real secrets manager (AWS Secrets Manager, HashiCorp Vault, etc.) — acceptable for a student project, a real requirement before production use.
 
 ## Environment Variables

@@ -1,6 +1,6 @@
-# 16 — Cross-Questions (Follow-Up Chains)
+﻿# 16 — Cross-Questions (Follow-Up Chains)
 
-Real interviews rarely stop at one question — they drill down. Below are realistic follow-up chains for the most important topics in JobCatch. Practice going down each chain out loud without notes.
+Real interviews rarely stop at one question — they drill down. Below are realistic follow-up chains for the most important topics in JobBridge. Practice going down each chain out loud without notes.
 
 ---
 

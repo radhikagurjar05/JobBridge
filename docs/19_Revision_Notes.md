@@ -1,6 +1,6 @@
-# 19 — Revision Notes (20-Minute Read Before the Interview)
+﻿# 19 — Revision Notes (20-Minute Read Before the Interview)
 
-## What Is JobCatch?
+## What Is JobBridge?
 A Flask web app: upload a resume (PDF/DOCX) → get an instant predicted job role (out of 25), a resume quality score (0–100), found/missing skills for that role, and suggested skills to learn. Also has login/register, upload history, a dashboard, and an interview-prep Q&A page (10 of 25 roles have questions).
 
 ## Tech Stack (One Line Each)
@@ -81,7 +81,7 @@ resume_text → clean_text() [strip URLs, keep a-z0-9/+#., lowercase]
 5. Read replicas / migrations (Alembic) / CDN for static assets — only once the above is done and still insufficient.
 
 ## Your Elevator Pitch (30 Seconds — Memorize This)
-"JobCatch is a Flask app where you upload a resume and it instantly predicts your best-fit job role out of 25 categories, scores your resume out of 100, and shows what skills you have versus what's missing. The matching engine isn't a black-box AI model — it's a transparent keyword-counting algorithm, so I can explain exactly why it made every prediction."
+"JobBridge is a Flask app where you upload a resume and it instantly predicts your best-fit job role out of 25 categories, scores your resume out of 100, and shows what skills you have versus what's missing. The matching engine isn't a black-box AI model — it's a transparent keyword-counting algorithm, so I can explain exactly why it made every prediction."
 
 ## If Asked "Is This AI?"
 Say **no** immediately and calmly: "It's rule-based keyword counting, not a trained model — a deliberate choice for full explainability." Do not get defensive. This is a trust test, not a technical test.

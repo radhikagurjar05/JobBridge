@@ -1,7 +1,7 @@
-# 05 — Folder Structure
+﻿# 05 — Folder Structure
 
 ```
-JobCatch/
+JobBridge/
 ├── app/                          # All Python application code
 │   ├── __init__.py                # App Factory: create_app()
 │   ├── config.py                  # Config class (env vars → settings)
@@ -60,7 +60,7 @@ JobCatch/
 ## Why Each Major Piece Exists
 
 ### `app/__init__.py` — The App Factory
-Flask apps can be built two ways: a single global `app = Flask(__name__)` at module scope, or a **factory function** `create_app()` that builds and returns the app when called. JobCatch uses the factory pattern. Why this matters: it avoids import-time side effects (the app object doesn't exist until something explicitly calls `create_app()`), which makes it possible to create multiple app instances with different configs (e.g., one for tests, one for production) without one polluting the other. `run.py` is the only place that actually calls it.
+Flask apps can be built two ways: a single global `app = Flask(__name__)` at module scope, or a **factory function** `create_app()` that builds and returns the app when called. JobBridge uses the factory pattern. Why this matters: it avoids import-time side effects (the app object doesn't exist until something explicitly calls `create_app()`), which makes it possible to create multiple app instances with different configs (e.g., one for tests, one for production) without one polluting the other. `run.py` is the only place that actually calls it.
 
 ### `app/config.py` — Centralized Configuration
 All environment-dependent values (`SECRET_KEY`, MySQL host/port/user/password/database, upload size limit, allowed file extensions) live in one `Config` class. This exists so that **no secret or environment-specific value is hardcoded anywhere else in the codebase** — every other file reads from `current_app.config[...]`. `python-dotenv`'s `load_dotenv()` is called at import time in this file, which is what makes a local `.env` file "just work" without extra setup in `run.py`.

@@ -1,8 +1,8 @@
-# 03 — Architecture
+﻿# 03 — Architecture
 
 ## Overall Architecture
 
-JobCatch is a **monolithic, server-rendered web application**. There is no separate frontend SPA, no microservices, and no external API layer beyond the app itself. Everything runs inside one Flask process.
+JobBridge is a **monolithic, server-rendered web application**. There is no separate frontend SPA, no microservices, and no external API layer beyond the app itself. Everything runs inside one Flask process.
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -35,7 +35,7 @@ JobCatch is a **monolithic, server-rendered web application**. There is no separ
                             ▼
                   ┌───────────────────┐
                   │   MySQL Database    │
-                  │   jobcatch_db       │
+                  │   jobbridge_db       │
                   │   • users            │
                   │   • resume_uploads   │
                   └───────────────────┘
@@ -55,7 +55,7 @@ There is **no client-side framework** (no React/Vue/Angular). All dynamic data (
 
 ### 2. Backend (Application Layer)
 - **Framework**: Flask 3.0.2, using the **Application Factory** pattern (`create_app()`), which is the recommended structure for anything beyond a toy script because it makes the app configurable and (in principle) testable without import-time side effects.
-- **Blueprints**: Flask Blueprints group related routes. JobCatch has exactly three:
+- **Blueprints**: Flask Blueprints group related routes. JobBridge has exactly three:
   - `auth_bp` (`app/auth/routes.py`) — registration, login, logout.
   - `main_bp` (`app/main/routes.py`) — home page, dashboard, contact, and the shared `login_required` decorator.
   - `resume_bp` (`app/resume/routes.py`) — upload, history, interview prep, and the questions JSON API.
@@ -74,7 +74,7 @@ There is **no client-side framework** (no React/Vue/Angular). All dynamic data (
 - There is **no** JWT, **no** OAuth (despite the `.env.example` placeholders and a docstring mentioning Google login — not implemented), and **no** CSRF token on forms. See [12_Security.md](12_Security.md) for the full breakdown of what is and isn't covered.
 
 ### 5. External APIs
-JobCatch does **not** call any third-party AI/ML API (no OpenAI, no HuggingFace inference endpoint, nothing). The only outbound network calls the *browser* makes are to Google Fonts and the Font Awesome CDN for styling assets — purely cosmetic, not part of the application's logic. The `requests` library is listed in `requirements.txt` but is not actually imported or used anywhere in `app/` — it is an unused dependency.
+JobBridge does **not** call any third-party AI/ML API (no OpenAI, no HuggingFace inference endpoint, nothing). The only outbound network calls the *browser* makes are to Google Fonts and the Font Awesome CDN for styling assets — purely cosmetic, not part of the application's logic. The `requests` library is listed in `requirements.txt` but is not actually imported or used anywhere in `app/` — it is an unused dependency.
 
 ### 6. Storage
 - **Resume files are never written to disk or to a blob store.** `extract_text()` reads the uploaded file straight from the in-memory `FileStorage` object into `io.BytesIO`, extracts text, and discards the binary content once the request ends. Only the **filename string** (sanitized via `secure_filename()`) and the **extracted analysis results** are persisted, inside MySQL — not the original file bytes.

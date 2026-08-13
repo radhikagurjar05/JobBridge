@@ -1,4 +1,4 @@
-# 04 — Application Flow (Feature by Feature)
+﻿# 04 — Application Flow (Feature by Feature)
 
 Every flow below is traced directly from the code — file names and function names are exact.
 
@@ -33,7 +33,7 @@ create_user(name, email, password_hash) → app/models.py
    ↓
 session['user_id'], session['user_name'], session['user_email'] set
    ↓
-flash("Welcome to JobCatch, {name}!")
+flash("Welcome to JobBridge, {name}!")
    ↓
 redirect → /dashboard
 ```

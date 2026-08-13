@@ -1,6 +1,6 @@
-# 08 — APIs
+﻿# 08 — APIs
 
-JobCatch is mostly a server-rendered app (HTML responses), but every route is documented below as if it were an API endpoint, since interviewers will ask about "endpoints" generically. Only **one** route (`/api/questions`) returns pure JSON; the rest return rendered HTML pages, and that distinction is called out explicitly.
+JobBridge is mostly a server-rendered app (HTML responses), but every route is documented below as if it were an API endpoint, since interviewers will ask about "endpoints" generically. Only **one** route (`/api/questions`) returns pure JSON; the rest return rendered HTML pages, and that distinction is called out explicitly.
 
 ---
 

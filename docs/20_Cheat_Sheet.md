@@ -1,4 +1,4 @@
-# 20 — Cheat Sheet (Compact Reference)
+﻿# 20 — Cheat Sheet (Compact Reference)
 
 ## Project Summary
 Flask app: upload resume (PDF/DOCX) → predicts 1 of 25 job roles via keyword counting → scores resume 0–100 (7 checks) → shows found/missing skills → suggests next skills → saves to MySQL → dashboard/history tracks it over time → separate interview-prep page (10/25 roles have Q&A).
@@ -109,4 +109,4 @@ extract_skills() → found vs missing keywords for predicted role
 10. "What's the `predictions` table?" → Mentioned in a stale docstring, never actually created — prediction lives as a column on `resume_uploads` instead.
 
 ## 30-Second Pitch
-"JobCatch is a Flask app where you upload a resume and it instantly predicts your best-fit job role out of 25 categories, scores your resume out of 100, and shows what skills you have versus what's missing. The matching engine isn't a black-box AI model — it's a transparent keyword-counting algorithm, so I can explain exactly why it made every prediction."
+"JobBridge is a Flask app where you upload a resume and it instantly predicts your best-fit job role out of 25 categories, scores your resume out of 100, and shows what skills you have versus what's missing. The matching engine isn't a black-box AI model — it's a transparent keyword-counting algorithm, so I can explain exactly why it made every prediction."

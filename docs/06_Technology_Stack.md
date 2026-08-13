@@ -1,4 +1,4 @@
-# 06 — Technology Stack
+﻿# 06 — Technology Stack
 
 Every technology listed here is actually present in [requirements.txt](../requirements.txt) or the codebase — nothing speculative is included.
 
@@ -20,7 +20,7 @@ Every technology listed here is actually present in [requirements.txt](../requir
 **Advantages**: Minimal boilerplate, easy to understand end-to-end (you can read every line that runs for a request), huge community, flexible enough to add only what you need.
 **Disadvantages**: Because it's unopinionated, you must make your own decisions about structure, ORM, auth, and forms — and it's easy to end up with an insecure or messy app if those decisions are skipped (which is partly true here — no CSRF protection, no ORM).
 **Alternatives**: Django, FastAPI.
-**Why chosen over Django**: Django is "batteries-included" (ORM, admin panel, auth system, forms with built-in CSRF protection all ship by default) — great for larger apps, but heavier and more opinionated than a project of this scope needed. JobCatch's author explicitly chose to write raw SQL and a hand-rolled auth flow instead of adopting Django's conventions.
+**Why chosen over Django**: Django is "batteries-included" (ORM, admin panel, auth system, forms with built-in CSRF protection all ship by default) — great for larger apps, but heavier and more opinionated than a project of this scope needed. JobBridge's author explicitly chose to write raw SQL and a hand-rolled auth flow instead of adopting Django's conventions.
 **Why chosen over FastAPI**: FastAPI is async-first and designed around typed request/response models (Pydantic) for building APIs — excellent for high-performance JSON APIs, but this project is primarily server-rendered HTML pages, which is Flask's sweet spot, not FastAPI's.
 **Trade-off summary**: Flask = maximum flexibility + you own more decisions. Django = more built-in but more opinionated/heavier. FastAPI = best for pure async JSON APIs, not HTML-rendering apps.
 

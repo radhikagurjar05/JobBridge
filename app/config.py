@@ -41,3 +41,15 @@ class Config:
     # -------------------------------------------------------
     MAX_CONTENT_LENGTH = 5 * 1024 * 1024   # 5 MB max upload size
     ALLOWED_EXTENSIONS = {'pdf', 'docx'}
+
+    # -------------------------------------------------------
+    # Session cookie security
+    # These settings ensure logout truly clears the session:
+    #   HTTPONLY  — JS cannot read the session cookie (XSS protection)
+    #   SAMESITE  — prevents CSRF attacks
+    #   PERMANENT — sessions expire when browser closes (not permanent)
+    # -------------------------------------------------------
+    SESSION_COOKIE_HTTPONLY = True
+    SESSION_COOKIE_SAMESITE = 'Lax'
+    SESSION_PERMANENT       = False   # session dies when browser closes
+

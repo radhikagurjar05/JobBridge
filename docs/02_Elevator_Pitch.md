@@ -1,17 +1,17 @@
-# 02 — Elevator Pitch (Interview-Ready Explanations)
+﻿# 02 — Elevator Pitch (Interview-Ready Explanations)
 
 These are written the way a student would actually *say* them out loud — not textbook language. Practice saying them, don't memorize word-for-word.
 
 ---
 
 ## 30-Second Explanation
-"JobCatch is a Flask web app I built where you upload your resume — PDF or Word — and it instantly tells you which of 25 job roles fits you best, gives your resume a score out of 100, and shows you exactly which skills you have and which ones you're missing for that role. It also has a login system and an interview-prep section with practice questions. The matching engine isn't a black-box AI model — it's a transparent keyword-counting algorithm, so I can explain exactly why it made every single prediction."
+"JobBridge is a Flask web app I built where you upload your resume — PDF or Word — and it instantly tells you which of 25 job roles fits you best, gives your resume a score out of 100, and shows you exactly which skills you have and which ones you're missing for that role. It also has a login system and an interview-prep section with practice questions. The matching engine isn't a black-box AI model — it's a transparent keyword-counting algorithm, so I can explain exactly why it made every single prediction."
 
 ## 1-Minute Explanation
-"JobCatch is a full-stack Flask application for job seekers. You register or log in, then upload your resume as a PDF or DOCX file. The backend uses PyPDF2 or python-docx to pull out the raw text, then runs it through my own analysis engine in `app/ml/predict.py`. That engine does three things: it counts keyword matches against 25 role dictionaries to predict your best-fit role, it checks for resume structure — things like whether you have an email, a phone number, a skills section, an education section — and gives a score out of 100, and it compares your resume's text against the keyword list for your predicted role to show found vs. missing skills. Every upload gets saved to a MySQL database along with the predicted role and score, so the dashboard can show your history and average score over time. There's also a separate interview-prep page where you pick a role and get real Q&A pairs to practice with."
+"JobBridge is a full-stack Flask application for job seekers. You register or log in, then upload your resume as a PDF or DOCX file. The backend uses PyPDF2 or python-docx to pull out the raw text, then runs it through my own analysis engine in `app/ml/predict.py`. That engine does three things: it counts keyword matches against 25 role dictionaries to predict your best-fit role, it checks for resume structure — things like whether you have an email, a phone number, a skills section, an education section — and gives a score out of 100, and it compares your resume's text against the keyword list for your predicted role to show found vs. missing skills. Every upload gets saved to a MySQL database along with the predicted role and score, so the dashboard can show your history and average score over time. There's also a separate interview-prep page where you pick a role and get real Q&A pairs to practice with."
 
 ## 2-Minute Explanation
-"JobCatch solves a problem a lot of students have: you don't really know if your resume is good, or which role it's actually aimed at, until a recruiter tells you — usually after you've already been rejected. So I built a tool that gives that feedback instantly.
+"JobBridge solves a problem a lot of students have: you don't really know if your resume is good, or which role it's actually aimed at, until a recruiter tells you — usually after you've already been rejected. So I built a tool that gives that feedback instantly.
 
 Architecturally it's a classic Flask app using the **application factory pattern** — `create_app()` in `app/__init__.py` builds the Flask app, loads config from environment variables via `python-dotenv`, and registers three blueprints: `auth` for login/register/logout, `main` for the homepage and dashboard, and `resume` for upload, history, and interview prep.
 
@@ -26,9 +26,9 @@ Security-wise, passwords are hashed with Werkzeug's `generate_password_hash` (sc
 The frontend is plain HTML/CSS/JavaScript with Jinja2 templates — no React or Vue — with a dark mode toggle stored in `localStorage` and a drag-and-drop upload zone."
 
 ## 5-Minute Explanation
-"JobCatch is a resume-analysis and career-guidance web application I built with Flask. I'll walk through the problem, the architecture, the core algorithm, the data model, and the security decisions.
+"JobBridge is a resume-analysis and career-guidance web application I built with Flask. I'll walk through the problem, the architecture, the core algorithm, the data model, and the security decisions.
 
-**The problem**: job seekers often don't know which role their resume actually targets, whether it's structurally complete, or which specific skills they're missing — and getting that feedback from a person is slow and often costs money. JobCatch automates the first pass of that feedback.
+**The problem**: job seekers often don't know which role their resume actually targets, whether it's structurally complete, or which specific skills they're missing — and getting that feedback from a person is slow and often costs money. JobBridge automates the first pass of that feedback.
 
 **The architecture** follows the Flask 'application factory' pattern instead of a single global `app = Flask(__name__)`. `create_app()` in `app/__init__.py` creates the app, loads `Config` (which itself pulls `SECRET_KEY` and MySQL credentials from environment variables via `python-dotenv`, so nothing sensitive is hardcoded), registers `app.teardown_appcontext(close_db)` so the database connection always closes at the end of a request, registers three blueprints (`auth_bp`, `main_bp`, `resume_bp`), and finally calls `init_db(app)`, which connects to MySQL and runs `CREATE TABLE IF NOT EXISTS` for `users` and `resume_uploads` — so the schema self-heals on first run without needing a separate migration step.
 
